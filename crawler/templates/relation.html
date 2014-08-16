@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}数据关系处理{% endblock %}
+{% block css %}
+    <script src="{{STATIC_URL}}angular-1.2.4/angular.min.js"></script>
+    <script src="{{STATIC_URL}}angular-1.2.4/angular-cookies.min.js"></script>
+    <script src="{{STATIC_URL}}js/crawler-relation.js"></script>
+{% endblock %}
+
+{% block content %}
+<style>
+    .name{ display: inline-block;width: 120px; text-align: right;}
+    .item{ padding: 4px;}
+</style>
+<div class="relations">
+    <div class="fbody"  ng-app="relation" ng-controller="RelationController">
+    <form novalidate name="relation" action="" method="post">
+        <div class="item" ng-repeat="r in relation">
+            <span class="name" ng-bind="r.name"></span> ->
+            <select ng-change="groupchange($index)" ng-model="group[$index]" ng-options="g.name for g in grouplist">
+                <option value="">---选择团体---</option>
+            </select>
+            <select ng-change="teamchange($index)" ng-model="team[$index]" ng-options="'Team ' + t.name for t in teamlist[group[$index].name]">
+                <option value="">---选择队伍---</option>
+            </select>
+            <select ng-model="relation[$index]['member']" ng-options="m.name for m in memberlist[ group[$index].name + team[$index].name]">
+                <option value="">---选择成员---</option>
+            </select>
+            <label><input type="checkbox" ng-model="isnone[$index]"/>没有找到成员</label>
+        </div>
+        <div ng-hide="relation">没有找到新的未处理数据关系</div>
+    <input type="submit" ng-click="next()" ng-disabled="sending" ng-show="relation" value="查看下一批" />
+    <input type="submit" ng-click="submit()" ng-disabled="sending || success" ng-show="relation" value="提交并查看下一批" />
+    </form>
+    </div>
+</div>
+{% endblock %}

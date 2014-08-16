@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}团体列表{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="http://akbquiz.qiniudn.com/css/48g-colors.min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/database.css">
+{% endblock %}
+
+
+{% block content %}
+    <div class="grouplist">
+        {% for group in groups %}
+        <div class="item {{ group.groupname|lower }}-lg">
+            <h1>{{group.groupname}}</h1> <a href="/database/group_{{ group.groupname|lower }}/">进入页面</a>
+            <div class="founded">组建时间：{{ group.founded|date:"Y年n月j日" }}</div>
+            <div class="description">{{group.description}}</div>
+            <a href="../group_{{ group.groupname|lower }}/teamlist/">队伍列表</a>
+            <a href="../group_{{ group.groupname|lower }}/memberlist/">团体成员</a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

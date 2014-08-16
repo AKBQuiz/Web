@@ -1,0 +1,52 @@
+name: akbquiz
+version: 1
+
+libraries:
+- name: "django"
+  version: "1.4"
+
+- name: "lxml"
+  version: "2.3.4"
+
+handlers:
+- url: /static/
+  static_dir: static
+  gzip: on
+
+cron:
+- description: "每月1日 00:01 抓取AKB48成员信息和照片"
+  url: /crawler/info/akb/
+  schedule: "1 0 1 * *"
+
+- description: "每月2日 00:01 抓取SKE48成员信息和照片"
+  url: /crawler/info/ske/
+  schedule: "1 0 2 * *"
+
+- description: "每月3日 00:01 抓取NMB48成员信息和照片"
+  url: /crawler/info/nmb/
+  schedule: "1 0 3 * *"
+
+- description: "每月4日 00:01 抓取HKT48成员信息和照片"
+  url: /crawler/info/hkt/
+  schedule: "1 0 4 * *"
+
+# - description: "每月5日 00:01 抓取SNH48成员信息和照片"
+#   url: /crawler/info/snh/
+#   schedule: "1 0 5 * *"
+
+# - description: "每月6日 00:01 抓取乃木坂46成员信息和照片"
+#   url: /crawler/info/ngzk/
+#   schedule: "1 0 6 * *"  #
+
+- description: "每月7日 00:01 对本月抓取到的信息进行自动关联"
+  url: /crawler/info/autorelation/
+  schedule: "1 0 7 * *"  #
+
+- description: "每月7日 01:01 对本月抓取到的信息应用到数据库"
+  url: /crawler/info/apply/
+  schedule: "1 1 7 * *"  #
+
+# - description: 48Groups schedule crawler
+#   url: /crawler/schedule
+#   schedule: "1 0 * * *"  # 每天 00:01 抓取所有48group的公演信息
+

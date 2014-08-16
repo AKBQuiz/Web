@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}{% trans "Log in" %}{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h3>{% trans "Log in" %}</h3>
+      <p></p>
+    </div>
+  </div>
+
+  {% if form.errors %}
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="alert alert-danger"><p>{% trans "Wrong Username and password combination." %}</p></div>
+    </div>
+  </div>
+  {% endif %}
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <form class="form-horizontal" method="post" action="{% url 'login' %}" role="form">
+        {% csrf_token %}
+        <div class="form-group">
+          <lable for="id_username" class="control-label col-md-3">{{form.username.label}}</lable>
+          <div class="col-md-8">
+            {{form.username}}
+          </div>
+        </div>
+        <div class="form-group">
+          <lable for="id_password" class="control-label col-md-3">{{form.password.label}}</lable>
+          <div class="col-md-8">
+            {{form.password}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-4 col-md-offset-2">
+            <button type="submit" class="btn btn-primary btn-block">{% trans "Log in" %}</button> 
+          </div>
+          <div class="col-md-4">
+            <a href="/accounts/register" class="btn btn-default btn-block" role="button">{% trans "Sign up now" %}</a>
+          </div>
+          <div class="col-md-2">
+              <p></p>
+              <small><a href="/accounts/password-reset">{% trans "Forgot your password?" %}</a></small>
+          </div>
+        </div>
+        <input type="hidden" name="next" value="{{ next }}" />
+      </form>
+      <h4>{% trans "Log in by sns account" %}</h4>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-1">
+          <a href="{% url 'sns_signin' 'weibo' %}"><img src="/static/image/weibo/login_24.png" alt=""/></a>
+        </div>
+        <div class="col-md-3">
+          <a href="{% url 'sns_signin' 'qq' %}"><img src="/static/image/qq/login_24.png" alt=""/> </a>
+        </div>
+        <div class="col-md-3">
+          <a href="{% url 'sns_signin' 'renren' %}"><img src="/static/image/renren/28.png" alt="" height="25" /> </a>
+        </div>
+        <!--
+        <div class="col-md-3">
+          <img src="/static/image/baidu/login-long.png" alt=""/> 
+        </div>-->
+      </div>
+    </div>
+  </div>
+{% endblock %}

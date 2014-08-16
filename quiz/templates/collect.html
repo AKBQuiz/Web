@@ -1,0 +1,198 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>AKBQuiz 问题征集</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+    <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/x-icon">
+    <link href="{% static "css/quizcollect.css" %}" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src ="{% static "angular-1.2.4/angular.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/quizcollect.js" %}"></script>
+</head>
+<body>
+	<div class="header">
+		<div class="logo">
+			<div class="">
+				<img src="{% static "images/quiz-logo.png" %}" border="0" alt="">
+			</div>
+			<div class="">
+				<img src="{% static "images/subtitle.png" %}" border="0" alt="">
+			</div>
+		</div>
+	</div>
+	<div class="content" ng-app="collectapp">
+		<div class="container" ng-controller="CollectCtrl">
+			<form name="quizinfo" class="form" novalidate ng-submit="signupForm()" >
+				<div class="item">
+					<span class="subtitle">作者：</span><input class="" type="text" name="author" ng-model="quiz.author" ng-minlength="2" ng-maxlength="32" placeholder="作者ID" required/> 
+					<div class="error" ng-show="quizinfo.author.$dirty && quizinfo.author.$invalid">! 
+						<small class="error" ng-show="quizinfo.author.$error.required">大侠请留名</small>
+						<small class="error" ng-show="quizinfo.author.$error.minlength">作者ID至少需要2个字符</small>
+						<small class="error" ng-show="quizinfo.author.$error.maxlength">作者ID不能超过32个字符</small>
+					</div>
+					<a href="#" ng-click="query()">查询该作者</a>
+				</div>
+
+				<div class="item">
+					<span class="subtitle">相关性</span>
+					<input id="akb" type="checkbox" ng-model="quiz.group[0]"/>
+					<label for="akb"><span class="logo-akb"></span></label>
+					<input id="ske" type="checkbox" ng-model="quiz.group[1]"/>
+					<label for="ske"><span class="logo-ske"></span></label>
+					<input id="nmb" type="checkbox" ng-model="quiz.group[2]"/>
+					<label for="nmb"><span class="logo-nmb"></span></label>
+					<input id="hkt" type="checkbox" ng-model="quiz.group[3]"/>
+					<label for="hkt"><span class="logo-hkt"></span></label>
+					<input id="ngzk" type="checkbox" ng-model="quiz.group[4]"/>
+					<label for="ngzk"><span class="logo-ngzk"></span></label>
+					<input id="sdn" type="checkbox" ng-model="quiz.group[5]"/>
+					<label for="sdn"><span class="logo-sdn"></span></label>
+					<input id="jkt" type="checkbox" ng-model="quiz.group[6]"/>
+					<label for="jkt"><span class="logo-jkt"></span></label>
+					<input id="snh" type="checkbox" ng-model="quiz.group[7]"/>
+					<label for="snh"><span class="logo-snh"></span></label>
+				</div>
+				<div class="item">
+					<div class="" ng-switch on="quiz.difficulty" ng-click="rank()">
+						<span class="subtitle">难度</span>
+						<div class="rank rank-0" ng-switch-when="0"></div>
+						<div class="rank rank-1" ng-switch-when="1"></div>
+						<div class="rank rank-2" ng-switch-when="2"></div>
+						<div class="rank rank-3" ng-switch-when="3"></div>
+						<div class="rank rank-4" ng-switch-when="4"></div>
+						<div class="rank rank-5" ng-switch-when="5"></div>
+						<span class=""> </span>
+					</div>
+				</div>
+				<div class="item">
+					<span class="subtitle">问题</span>
+					<div class="sub">
+						<div class="field question">
+							<textarea type="text" name="question" ng-model="quiz.question" ng-minlength="7" ng-maxlength="200"
+						 placeholder="问题内容" required></textarea>
+						 </div><div class="hint question">
+							请避免以下类型的问题
+							<ul><li>时效性问题<br /><small>例如：截至XX年X月X日，AKB48最年少是谁？</small></li><li>单纯的成员出生地、生日、队伍归属、毕业日期等问题 <br /><small>此类问题已经可以自动生成</small></li></ul>
+							<div class="error" ng-show="quizinfo.question.$dirty && quizinfo.question.$invalid">! 
+								<small class="error" ng-show="quizinfo.question.$error.required">请输入问题</small>
+								<small class="error" ng-show="quizinfo.question.$error.minlength">问题至少需要7个字符</small>
+								<small class="error" ng-show="quizinfo.question.$error.maxlength">问题不能超过200个字符</small>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<span class="subtitle">正确答案</span>
+					<div class="sub">
+						<div class="field alternative">
+							<textarea type="text" name="answer" ng-model="quiz.answer" ng-minlength="2" ng-maxlength="50" placeholder="正确答案内容" required></textarea>
+						</div>
+						<div class="hint alternative">
+							<div class="error" ng-show="quizinfo.answer.$dirty && quizinfo.answer.$invalid">! 
+								<small class="error" ng-show="quizinfo.answer.$error.required">请输入问题的答案</small>
+								<small class="error" ng-show="quizinfo.answer.$error.minlength">答案至少需要2个字符</small>
+								<small class="error" ng-show="quizinfo.answer.$error.maxlength">答案不能超过50个字符</small>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="">
+						<span class="subtitle">备选答案</span>
+					</div>
+					<div class="sub">
+						<span class="subtitle">1.</span>
+						<div class="field alternative">
+							<textarea class="alternative" type="text" name="wrong_0" ng-model="quiz.wrong[0]" ng-minlength="2" ng-maxlength="50" placeholder="备选项1内容" required></textarea>
+						</div>
+						<div class="hint alternative">
+							<div class="error" ng-show="quizinfo.wrong_0.$dirty && quizinfo.wrong_0.$invalid">! 
+								<small class="error" ng-show="quizinfo.wrong_0.$error.required">请输入备选项</small>
+								<small class="error" ng-show="quizinfo.wrong_0.$error.minlength">备选项至少需要2个字符</small>
+								<small class="error" ng-show="quizinfo.wrong_0.$error.maxlength">备选项不能超过50个字符</small>
+							</div>
+						</div>
+					</div>
+					<div class="sub">
+						<span class="subtitle">2.</span>
+						<div class="field alternative">
+							<textarea class="alternative" type="text" name="wrong_1" ng-model="quiz.wrong[1]" ng-minlength="2" ng-maxlength="50" placeholder="备选项2内容" required></textarea>
+						</div>
+						<div class="hint alternative">
+							<div class="error" ng-show="quizinfo.wrong_1.$dirty && quizinfo.wrong_1.$invalid">! 
+								<small class="error" ng-show="quizinfo.wrong_1.$error.required">请输入备选项</small>
+								<small class="error" ng-show="quizinfo.wrong_1.$error.minlength">备选项至少需要2个字符</small>
+								<small class="error" ng-show="quizinfo.wrong_1.$error.maxlength">备选项不能超过50个字符</small>
+							</div>
+						</div>
+					</div>
+					<div class="sub">
+						<span class="subtitle">3.</span>
+						<div class="field alternative">
+							<textarea class="alternative" type="text" name="wrong_2" ng-model="quiz.wrong[2]" ng-minlength="2" ng-maxlength="50" placeholder="备选项3内容" required></textarea>
+						</div>
+						<div class="hint alternative">
+							<div class="error" ng-show="quizinfo.wrong_2.$dirty && quizinfo.wrong_2.$invalid">! 
+								<small class="error" ng-show="quizinfo.wrong_2.$error.required">请输入备选项</small>
+								<small class="error" ng-show="quizinfo.wrong_2.$error.minlength">备选项至少需要2个字符</small>
+								<small class="error" ng-show="quizinfo.wrong_2.$error.maxlength">备选项不能超过50个字符</small>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<input type="reset" ng-click="reset()"/>
+					<input type="button" value="提交" ng-click="submit()"/>
+				</div>
+<!-- 
+				<div class="sidebar works-editor">
+					<div class="sidebar-title">
+						和作者<span class="sidebar-editor">editor</span>相关的问题有：
+					</div>
+					<div class="works-content">
+						<div class="works-item">
+							<div class="works-item-editor">作者</div>
+							<div class="works-item-question">问题</div>
+						</div>
+					</div>
+					<img src="{% static "images/wait.gif" %}" ></img>
+					<div class="more">
+						<a target="_blank" href="">更多...</a>
+					</div>
+				</div>
+
+				<div class="sidebar works-question">
+					<div class="sidebar-title">
+						相关的：
+					</div>
+					<div class="works-content">
+						<div class="works-item">
+							<div class="works-item-editor">作者</div>
+							<div class="works-item-question">问题</div>
+						</div>
+					</div>
+					<img src="{% static "images/wait.gif" %}" ></img>
+					<div class="more">
+						<a target="_blank" href="">更多...</a>
+					</div>
+				</div> -->
+
+			</form>
+			<div class="alert" ng-show="alerting">
+				<div class="alert-body">
+					<div class="alert-close" ng-click="stopalert()"></div>
+					<div class="alert-container">
+						<div class="alert-warning-img"> </div> 
+						<div class="alert-text" ng-bind="alerttext">alert-text</div>
+					</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<div class="footer-content">
+			网页:BabyBeaR 美工:因少 © 2013 AKBQuiz™
+		</div>
+	</div>
+</body>
+</html>

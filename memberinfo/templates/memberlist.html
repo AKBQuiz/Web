@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block title %}成员列表{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="http://akbquiz.qiniudn.com/css/48g-colors.min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/database.css">
+{% endblock %}
+
+{% block content %}
+<div class="memberlist">
+    {% for member in members %}
+    <div class="item memberinfo {{ member.group|lower }}-lg">
+        <div class="avatar avatar-middle"><a href="/database/member_{{member.mid}}">{% if member.avatar %}<img src="{{member.avatar}}-middle" alt="">{% else %}<img src="{{STATIC_URL}}/images/avatar-none-middle.png" alt="">{% endif %}</a></div>
+        <div class="info info-brief">
+            <h3>{{member.name}}</h3> <a href="/database/member_{{member.mid}}">详情</a>
+            <ul>
+                <li>昵称: {{member.nick}}</li>
+                <li>队伍: {{member.group}} Team {{member.team}}</li>
+                {% if member.bothin %}
+                <li>兼任: {{member.bothin}}</li>
+                {% endif %}
+                {% if member.generation %}
+                <li>{{member.generation}}期生</li>
+                {% endif %}
+                <li>出身地: {{member.hometown}}</li>
+                <li>生日: {{member.birthday|date:"Y年n月j日"}}</li>
+                {% if member.graduate %}
+                <li>毕业日期: {{member.graduate|date:"Y年n月j日"}}</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="c"></div>
+{% endblock %}

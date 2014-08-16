@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}{% trans "Profile" %}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-4">
+    头像
+    账号
+    昵称
+    邮箱
+
+  </div>
+  <div class="col-md-8">
+    QQ
+    weibo
+    renren
+    
+  </div>
+</div>
+Profole of user : {{ user.username }}
+{% endblock %}

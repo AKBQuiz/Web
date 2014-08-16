@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}{% trans "Sign out" %}{% endblock %}
+
+{% block css %}
+<meta http-equiv="refresh" content="5;url=/">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+  	<p></p>
+    <div class="jumbotron">
+      <h2>{% trans "Already logout" %}</h2>
+      <p>{% trans "Will go to home page automatically in 5s." %} <small>{% trans "If your browser does not respond" %} <a href="/">{% trans "click here" %}</a></small></p>
+    </div>
+    <p></p>
+  </div>
+</div>
+
+{% endblock %}

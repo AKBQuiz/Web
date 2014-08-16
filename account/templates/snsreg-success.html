@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}{% trans "Register by SNS" %}{% endblock %}
+
+{% block content %}
+<div class="row">
+    
+    <div class="col-md-8 col-md-offset-2">
+    <div class="well">
+      <div class="col-md-10 col-md-offser-1">
+        <h3>{% trans "Register accomplished" %}</h3>
+      </div>
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1">
+              <p>{% trans "Your account is created." %}</p>
+              <div class="row"><div class="col-md-10 col-md-offset-1">
+                <dl>
+                  <dt>{% trans "Username" %}</dt>
+                  <dd>{{ username }}</dd>
+                  <dt>{% trans "Password" %}</dt>
+                  <dd>{{ password }}</dd>
+                </dl>
+              </div></div>
+              <p>{% trans "Please set your e-mail address in profile page and change your password asap." %}</p>
+              <p><a href="{% url 'password_change' %}">{% trans "Change password" %}</a>*<small></p>
+              <p>*{% trans "Password change needs your old password, please copy the password above." %}</small></p>
+          </div>
+          <div class="col-md-5">
+              <h5>{% trans "This account created from SNS:" %} <strong>{{snsname}}</strong></h5>
+              <p><a href="{{ sns_url }}"><img src="{{avatar_url}}" alt="{{ snsusername }}" class="img-thumbnail img-responsive"></a></p>
+              <h4>{{ snsusername }}</h4>
+          </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

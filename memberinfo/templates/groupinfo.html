@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}{{ group.groupname|upper }} 团体信息{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="http://akbquiz.qiniudn.com/css/48g-colors.min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/database.css">
+{% endblock %}
+
+
+{% block content %}
+<div class="item {{ group.groupname|lower }}-lg">
+    <h1>{{group.groupname}}</h1>
+    <div class="founded">组建时间：{{ group.founded|date:"Y年n月j日" }}</div>
+    <div class="description">{{group.description}}</div>
+    <div class="createtime">数据创建时间：{{ group.createtime|date:"Y年n月j日 G:i" }}</div>
+    <div class="edittime">数据编辑时间：{{ group.edittime|date:"Y年n月j日 G:i" }}</div>
+    <a href="./teamlist/">队伍列表</a>
+    <a href="./memberlist/">团体成员</a>
+</div>
+{% endblock %}

@@ -52,3 +52,19 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# Localenv
+*.bat
+
+# SQL backup
+*.sql
+
+# Not needed
+convert/
+test.py
+
+# Static files
+static/
+
+# Developing
+charts/
+responser/

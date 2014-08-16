@@ -1,0 +1,54 @@
+{% load url from future %}
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <title>{% block title %}{% endblock %} - AKBQuiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{STATIC_URL}}css/base.css" rel="stylesheet" media="screen">
+    <link href="{{STATIC_URL}}css/icons.min.css" rel="stylesheet" media="screen">
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+  {% block header %}
+  <div class="navbar">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="{% url 'home' %}">AKBQuiz</a>
+      </div>
+      <div class="nav">
+        <ul class="navbar-nav">
+          <li{% if nav_active == 0 %} class="active" {% endif %}><a href="{% url 'quizgame' %}">Quiz</a></li>
+          <li{% if nav_active == 1 %} class="active" {% endif %}><a href="">成员数据库</a></li>
+          <li{% if nav_active == 10 %} class="active" {% endif %}><a href="">关于本站</a></li>
+          <li{% if nav_active == 11 %} class="active" {% endif %}><a href="">联系作者</a></li>
+        </ul>
+        <div class="float-right user-bar">
+          {% if user.is_authenticated %}
+            <span class="glyphicon glyphicon-user"></span> 欢迎， <strong class="text-primary">{{user.username}}</strong></span> | {% if user.is_staff%}<a href="/admin/"><span class="glyphicon glyphicon-wrench" title="Management"></span></a> {% endif %}<a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out" title="Logout"></span></a>
+          {% else %}
+            <a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in" title="Login"></span> </a> | <a href=""><span class="glyphicon glyphicon-pencil" title="Regiser"></span></a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {%endblock%}
+
+  <div class="content">
+    <div class="container">
+    {% block content %}{% endblock %}
+    </div>
+  </div>
+
+
+  {% block footer %}
+  <div class="footer text-center">
+    <div class="container">
+    	<div><small>Copyright © 2014 <a href="http://xiongduo.cn" title = "联系我"><strong>CuGBabyBeaR</strong></a> 版权所有</small></div>
+    	<div class="text-right"><small>Powered by: <a href="https://www.djangoproject.com/"><img src="{{STATIC_URL}}images/django_16.png" alt="">Django</a> <a href="https://angularjs.org/"><img src="{{STATIC_URL}}images/angularjs_16.png" alt="">Angularjs</a> <a href="http://sae.sina.com.cn/"><img src="{{STATIC_URL}}images/sae_16.png" alt="">Sina App Engine</a></small></div>
+    </div>
+  </div>
+  {% endblock %}
+</body>
+</html>

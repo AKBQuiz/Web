@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block title %}{{ member.name }} 成员信息{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="http://akbquiz.qiniudn.com/css/48g-colors.min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/database.css">
+{% endblock %}
+
+{% block content %}
+<div class="item memberinfo {{ member.group|lower }}-lg">
+    <div class="avatar">{% if member.avatar %}<img src="{{member.avatar}}-large" alt="">{% else %}<img src="{{STATIC_URL}}/images/avatar-none.png" alt="">{% endif %}</div>
+    <div class="info">
+        <h1>{{member.name}}</h1>
+        <dl>
+            <dt>昵称</dt>
+            <dd>{{member.nick}}</dd>
+            <dt>队伍</dt>
+            <dd>{{member.group}} Team {{member.team}}</dd>
+            {% if member.bothin %}
+            <dt>兼任</dt>
+            <dd>{{member.bothin}}</dd>
+            {% endif %}
+            {% if member.generation %}
+            <dt>期次</dt>
+            <dd>{{member.generation}}期生</dd>
+            {% endif %}
+            <dt>出身地</dt>
+            <dd>{{member.hometown}}</dd>
+            <dt>生日</dt>
+            <dd>{{member.birthday|date:"Y年n月j日"}}</dd>
+            {% if member.graduate %}
+            <dt>毕业日期</dt>
+            <dd>{{member.graduate|date:"Y年n月j日"}}</dd>
+            {% endif %}
+            <dt>其他</dt>
+            <dd>{{member.description|safe}}</dd>
+        </dl>
+    </div>
+    <div class="data">
+        <dl>
+            <dt>数据创建时间</dt>
+            <dd>{{member.createtime|date:"Y年n月j日 G:i" }}</dd>
+            <dt>数据修改时间</dt>
+            <dd>{{member.edittime|date:"Y年n月j日 G:i" }}</dd>
+            <dt>数据状态</dt>
+            <dd>{{member.state}} : {% if member.state == -1 %}已删除{% elif member.state == 0 %}已接收{% elif member.state == 1 %}毕业生{% elif member.state == 2 %}研究生{% elif member.state == 3 %}正式成员{% endif %}</dd>
+        </dl>
+    </div>
+</div>
+{% endblock %}
