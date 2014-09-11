@@ -1,0 +1,74 @@
+h1,h2,h3{
+    display: inline-block;
+    margin: 0px 20px 15px 10px;
+    text-shadow: 1px 1px 0.5px #000;
+}
+
+.c {
+    clear: both;
+}
+.item {
+    padding: 15px 25px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+.item > div {
+    text-shadow: 1px 1px 0.5px rgba(0,0,0,0.75);
+}
+
+.memberlist{
+    position: relative;
+}
+.memberlist > .item{
+    float: left;
+    width: 420px;
+    height: 180px;
+    margin: 10px;
+}
+
+.info {
+    display: inline-block;
+    margin-left: 50px;
+}
+.info > dl > dt{
+    font-weight: bold;
+}
+.info > dl > dd{
+    margin-left: 45px;
+    margin-bottom: 5px;
+}
+
+.data {
+    font-size: 10px;
+    height:120px;
+}
+.data > dl {
+    width: 180px;
+    float: right;
+}
+.avatar {
+    width: 250px;
+    height: 299px;
+    margin-right: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 1px 1px 0.1px rgba(0,0,0,0.75);
+    display: inline-block;
+}
+.avatar img {
+    border-radius: 5px;
+    width: 250px;
+    height: 299px;
+}
+
+.avatar-middle{
+    padding: 2px;
+    width: 100px;
+    height: 120px;
+}
+
+.avatar-middle img {
+    width: 100px;
+    height: 120px;
+}
