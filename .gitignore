@@ -52,6 +52,9 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# site-packages
+site-packages/
+
 # Localenv
 *.bat
 
@@ -67,4 +70,4 @@ static/
 
 # Developing
 charts/
-responser/
+# responser/
