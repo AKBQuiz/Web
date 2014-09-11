@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load url from future %}
 
-{% block title %}{{ group.groupname|upper }}的队伍列表{% endblock %}
+{% block title %}{{ group|upper }}的队伍列表{% endblock %}
 {% block css %}
     <link rel="stylesheet" href="http://akbquiz.qiniudn.com/css/48g-colors.min.css">
     <link rel="stylesheet" href="{{STATIC_URL}}css/database.css">
@@ -12,8 +12,8 @@
 {% block content %}
     <div class="teamlist">
         {% for team in teams %}
-        <div class="item {{ group.groupname|lower }}-lg">
-            <h2>Team {{ team.teamname }}</h2> <a href="/database/group_{{ group.groupname|lower }}/team_{{ team.teamname|lower }}/">进入页面</a>
+        <div class="item {{ group|lower }}-lg">
+            <h2>Team {{ team.teamname }}</h2> <a href="/database/group_{{ group|lower }}/team_{{ team.teamname|lower }}/">进入页面</a>
             <div class="founded">组建时间：{{ team.founded|date:"Y年n月j日" }}</div>
             <div class="description">{{team.description}}</div>
             <a href="../team_{{ team.teamname|lower }}/memberlist/">队伍成员</a>

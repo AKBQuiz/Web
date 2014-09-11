@@ -19,7 +19,7 @@
       <div class="nav">
         <ul class="navbar-nav">
           <li{% if nav_active == 0 %} class="active" {% endif %}><a href="{% url 'quizgame' %}">Quiz</a></li>
-          <li{% if nav_active == 1 %} class="active" {% endif %}><a href="">成员数据库</a></li>
+          <li{% if nav_active == 1 %} class="active" {% endif %}><a href="{% url 'database' %}">成员数据库</a></li>
           <li{% if nav_active == 10 %} class="active" {% endif %}><a href="">关于本站</a></li>
           <li{% if nav_active == 11 %} class="active" {% endif %}><a href="">联系作者</a></li>
         </ul>
