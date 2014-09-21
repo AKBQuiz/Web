@@ -1,77 +1,50 @@
-{% load staticfiles %}
-<!doctype html>
-<html >
-<head>
-    <title>AKBQuiz</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-    <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/x-icon">
-    <link href="{% static "css/quizgame.css" %}" type="text/css" rel="stylesheet">
+{% extends "base.html" %}
+{% block title %}AKBQuiz{% endblock %}
 
-    <script type="text/javascript" src = " {% static "angular-1.2.4/angular.js" %} "></script>
-    <script type="text/javascript" src=" {% static "js/quizgame.js" %} "></script>
-</head>
-<body>
-<div id="header" class="header">    
-    <div class="logo">
-        <div class="">
-            <img src="/static/images/quiz-logo.png" border="0" alt="">
+{% block css %}
+    <link href="{{STATIC_URL}}css/quizgame.css" type="text/css" rel="stylesheet">
+
+    <script type="text/javascript" src="{{STATIC_URL}}angular-1.2.4/angular.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}angular-1.2.4/angular-animate.min.js"></script>
+
+    <script type="text/javascript" src="{{STATIC_URL}}js/quizgame.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="app" ng-app="quizapp" ng-controller="QuizCtrl">
+    <div class="above">
+        <div class="counter"> <span class="current-no" ng-bind='index + 1'>0</span> / <span class="total-num" ng-bind="quizlist.length"></span> </div>
+        <div class="time">用时：<span ng-bind="timeUsed | timefilter"></span></div>
+    </div>
+    <div class="page" ng-repeat="quiz in quizlist" ng-show="$index == index">
+        <div class="col-2">
+            <div class="question" ng-bind="quiz.q"></div>
+        </div>
+        <div class="col-2">
+            <div class="answer" ng-repeat-start="a in quiz.a" ng-bind="a" ng-click="check($index)"></div>
+            <div style="clear:both;" ng-repeat-end></div>
         </div>
     </div>
-</div>
-<div class="content" ng-app="quizapp" ng-controller="QuizCtrl">
-    <div class="quiz_container" >
-        <button ng-click="start()">开始</button>
-        <div class="above">
-            <div class="quiz_title"> <span class="current-no" ng-bind='index + 1'>0</span> / <span class="total-num" ng-bind="quizlist.length"></span> </div>
-            <div class="time" ng-bind="timeUsed | timefilter"></div>
-        </div>
-        <div class="question" ng-bind="quizlist[index].q">问题</div>
-        <div class="opt" ng-repeat="a in quizlist[index].a" ng-bind="a" ng-click="check($index)">选项</div>
-        <div class="console">正确：<span class="correct" ng-bind="correct">0</span> 错误：<span class="incorrect" ng-bind="incorrect">0</span></div>
-    </div>
-    <div class="options_container">
-        <div class="options" ng-mouseleave="isShowing = false" ng-mouseover="isShowing = true">
-            <div class="options_title">
-                <span >我有话说</span> <div class="toquizsubmission"><a href="collect/">我要出题</a></div>
+    <div class="mask" ng-show="!isStart">
+        <div class="maskcontainer" ng-show="!isStart">
+            <div class="logo">
+                <img src="/static/images/quiz-logo.png" border="0" alt="">
             </div>
-            <div class="options_content" ng-show="isShowing">
-                <div class="revise" >
-                    <span>标记为:</span>
-                    <div class="revise_tag" title="我一定在哪里见过这个题目..." 
-                        ng-class="{revise_tag_choosed: comment.revise[0]}" ng-click="comment.revise[0] = !comment.revise[0]">
-                        重复的
-                    </div>
-                    <div class="revise_tag" title="这个题目的答案不对..." 
-                        ng-class="{revise_tag_choosed: comment.revise[1]}" ng-click="comment.revise[1] = !comment.revise[1]">
-                        答案不对
-                    </div>
-                    <div class="revise_tag" title="出题的人语死早..." 
-                        ng-class="{revise_tag_choosed: comment.revise[2]}" ng-click="comment.revise[2] = !comment.revise[2]">
-                        语言组织不当
-                    </div>
-                    <div class="revise_tag"  title="出题的人手残打错字了..." 
-                        ng-class="{revise_tag_choosed: comment.revise[3]}" ng-click="comment.revise[3] = !comment.revise[3]">
-                        错字别字
-                    </div>
-                </div>
-                <div class="comment_container">
-                    对于这个题，我想说：<input class="comment" type="text" name="" ng-modle="comment.text"/>
-                </div>
-                <input class="comment_submit"  type="button" value="提交" onclick="sendcomment();" />
-                <span ng-bind="commentecho"></span>
-            </div>
+            <div class="start" ng-click="start()">Go!</div>
         </div>
     </div>
-    <div class="mask">
-        <div class="info">
-            
+    <div class="mask" ng-show="isLoading">
+        <div class="maskcontainer" ng-show="isLoading">
+            <div class="start">Loading...</div>
+        </div>
+    </div>
+    <div class="mask" ng-show="isFinish">
+        <div class="maskcontainer" ng-show="isFinish">
+            <div class="correct">正确 <span ng-bind="correct"></span></div>
+            <div class="incorrect">错误 <span ng-bind="incorrect"></span></div>
+            <div class="start" ng-click="start()">再来一局！</div>
         </div>
     </div>
 </div>
-<div id="footer" class="footer">
-    <div id="footer_content" class="footer_content">
-        网页:BabyBeaR 美工:因少 © 2013 AKBQuiz™
-    </div>
-</div>
-</body>
-</html>
+{% endblock %}
+

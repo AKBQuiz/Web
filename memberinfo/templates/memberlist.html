@@ -3,7 +3,7 @@
 
 {% block title %}{{title}}成员列表{% endblock %}
 {% block css %}
-    <link rel="stylesheet" href="http://akbquiz.qiniudn.com/css/48g-colors.min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/48g-colors.min.css">
     <link rel="stylesheet" href="{{STATIC_URL}}css/database.css">
 {% endblock %}
 
@@ -11,7 +11,7 @@
 <div class="memberlist">
     {% for member in members %}
     <div class="item memberinfo {{ member.group|lower }}-lg">
-        <div class="avatar avatar-middle"><a href="/database/member_{{member.mid}}">{% if member.avatar %}<img src="{{member.avatar}}-middle" alt="">{% else %}<img src="{{STATIC_URL}}/images/avatar-none-middle.png" alt="">{% endif %}</a></div>
+        <div class="avatar avatar-middle"><a href="/database/member_{{member.mid}}">{% if member.avatar %}<img src="{{member.avatar}}-middle" alt="">{% else %}<img src="{{STATIC_URL}}images/avatar-none-middle.png" alt="">{% endif %}</a></div>
         <div class="info info-brief">
             <h3>{{member.name}}</h3> <a href="/database/member_{{member.mid}}">详情</a>
             <ul>

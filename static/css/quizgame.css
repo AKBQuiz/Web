@@ -1,42 +1,150 @@
-*{margin:0;padding:0;}
 body{background:url("/static/images/game-bg.jpg")}
-a:link, a:visited {color:#555; text-decoration:none;}        
-a:hover, a:active {color:#000; text-decoration:none;}   
 
-.logo{margin:0px auto; width:800px; padding:30px; text-align:center; background:rgba(255,255,255,0.75);}
+.mask{
+    text-align: center;
+    z-index: 10;
+    position: absolute;
+    left: 0px; right:0; top: 0px; bottom:-25px;
+    background: rgba(8,8,8,0.9);
+}
+.maskcontainer{
+    margin: auto;
+    position: absolute;
+    height: 500px;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}
+
+.maskcontainer.ng-hide-remove{
+    -webkit-animation: slideDown 0.5s;
+       -moz-animation: slideDown 0.5s;
+         -o-animation: slideDown 0.5s;
+            animation: slideDown 0.5s;
+}
+.maskcontainer.ng-hide-add{
+    -webkit-animation: slideUp 0.5s;
+       -moz-animation: slideUp 0.5s;
+         -o-animation: slideUp 0.5s;
+            animation: slideUp 0.5s;
+}
+
+.mask.ng-hide-remove,.mask.ng-hide-add{
+    -webkit-transition:all linear 0.5s;
+       -moz-transition:all linear 0.5s;
+         -o-transition:all linear 0.5s;
+            transition:all linear 0.5s;
+}
+
+.mask.ng-hide-add.ng-hide-add-active,
+.mask.ng-hide-remove{
+    opacity:0;
+}
+.mask.ng-hide-remove.ng-hide-remove-active,
+.mask.ng-hide-add{
+    opacity:1;
+}
+
+@keyframes slideDown{
+    0%   {top: -1000px; animation-timing-function: ease-in-out;}
+    80%  {top: 100px; animation-timing-function: ease-in-out;}
+    100% {top: 0px; animation-timing-function: ease-in-out;}
+}
+@keyframes slideUp{
+    0%   {top: 0px; animation-timing-function: ease-in-out;}
+    20%  {top: 100px; animation-timing-function: ease-in-out;}
+    100% {top: -1000px; animation-timing-function: ease-in-out;}
+}
+
+@-webkit-keyframes slideDown{
+    0%   {top: -1000px; animation-timing-function: ease-in-out;}
+    80%  {top: 100px; animation-timing-function: ease-in-out;}
+    100% {top: 0px; animation-timing-function: ease-in-out;}
+}
+@-webkit-keyframes slideUp{
+    0%   {top: 0px; animation-timing-function: ease-in-out;}
+    20%  {top: 100px; animation-timing-function: ease-in-out;}
+    100% {top: -1000px; animation-timing-function: ease-in-out;}
+}
+
+@-moz-keyframes slideDown{
+    0%   {top: -1000px; animation-timing-function: ease-in-out;}
+    80%  {top: 100px; animation-timing-function: ease-in-out;}
+    100% {top: 0px; animation-timing-function: ease-in-out;}
+}
+@-moz-keyframes slideUp{
+    0%   {top: 0px; animation-timing-function: ease-in-out;}
+    20%  {top: 100px; animation-timing-function: ease-in-out;}
+    100% {top: -1000px; animation-timing-function: ease-in-out;}
+}
+
+@-o-keyframes slideDown{
+    0%   {top: -1000px; animation-timing-function: ease-in-out;}
+    80%  {top: 100px; animation-timing-function: ease-in-out;}
+    100% {top: 0px; animation-timing-function: ease-in-out;}
+}
+@-o-keyframes slideUp{
+    0%   {top: 0px; animation-timing-function: ease-in-out;}
+    20%  {top: 100px; animation-timing-function: ease-in-out;}
+    100% {top: -1000px; animation-timing-function: ease-in-out;}
+}
+
+@keyframes slideLeftIn{
+    0%   {}
+    20%  {}
+    100% {}
+}
+@keyframes slideLeftOut{
+    0%   {}
+    20%  {}
+    100% {}
+}
+
+@keyframes slideRightIn{
+    0%   {}
+    20%  {}
+    100% {}
+}
+@keyframes slideRightOut{
+    0%   {}
+    20%  {}
+    100% {}
+}
+
+.logo{margin:0px auto; width:800px; padding:20px;}
+.start{font-size: 64px; color: #aaa ; text-shadow: 2px 2px 2px #000; cursor:pointer; display: inline-block;}
+.start:hover{color: #fff;}
+.incorrect, .correct{font-size: 48px; color: #aaa; width: 250px; text-align: left; margin:0px auto;}
+.incorrect{ margin-bottom: 50px;}
+.correct > span{font-size: 72px; color: #090;}
+.incorrect > span{font-size: 72px; color: #c00;}
 
 .quiz_container{
-    margin:0px auto; 
-    width:800px; 
-    height:600px; 
-    padding:30px; 
-    background:rgba(255,255,255,0.75); 
+    margin:0px auto;
+    width:800px;
+    height:600px;
+    padding:30px;
+    background:rgba(255,255,255,0.75);
 }
 .above{
-    margin:20px; 
-    padding:10px; 
-    width:740px; 
-    height:40px; 
-    text-align:center; 
-    background:#fff; 
-
-    border:1px solid #e3e3e3;
-    -webkit-border-radius:5px;
-       -moz-border-radius: 5px;
-            border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-       -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+    margin:20px;
+    padding:10px;
+    height:80px;
+    text-align:center;
 }
-.quiz_title{width:550px; float:left;}
-.time{padding:10px;width:140px; float:left;}
+.counter{font-size: 18px; text-shadow: 1px 1px 0.5px #000;}
+.current-no{font-size: 36px; color: #fff; text-shadow: 1px 1px 2px #000;}
+.time{float:left; color: #ccc; font-size: 24px; text-shadow: 1px 1px 1px #000;}
+
 .question{
-    width:350px; 
-    height:350px; 
-    padding:20px;  
-    margin:4px; 
+    height:350px;
+    padding:20px;
+    margin:4px;
     background:#fff;
-    float:left; 
+
+    font-size: 24px;
+    text-shadow: 1px 1px 0.5px rgba(0,0,0,0.3);
 
     border:1px solid #e3e3e3;
     border-radius: 4px;
@@ -47,15 +155,26 @@ a:hover, a:active {color:#000; text-decoration:none;}
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
 
     -webkit-user-select: none;
-     -khtml-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
          -o-user-select: none;
             user-select: none;
     cursor:default;
 }
-.opt{width:350px; height:50px; padding:20px; float:left; margin:4px; background:#fff;
-    border:1px solid #e3e3e3; 
+
+.answer{
+    width: 440px;
+    height:50px;
+    padding:20px;
+    margin: 4px;
+    background:#fff;
+    border:1px solid #e3e3e3;
+    display: block;
+    float: left;
+
+    font-size: 18px;
+    text-shadow: 0.8px 0.8px 0.1px rgba(0,0,0,0.3);
+
     -webkit-border-radius: 4px;
        -moz-border-radius: 4px;
             border-radius: 4px;
@@ -63,38 +182,50 @@ a:hover, a:active {color:#000; text-decoration:none;}
        -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
             box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
     -webkit-user-select: none;
-     -khtml-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
          -o-user-select: none;
             user-select: none;
     cursor:pointer;
 }
-.opt:hover{margin:0px; border:5px green solid;
+.answer:hover{
+    margin: 0px;
+    border:5px green solid;
     -webkit-border-radius: 8px;
        -moz-border-radius: 8px;
-            border-radius: 8px;}
-.console{
-    margin:20px;
-    padding:10px;
-    width:740px;
-    height:40px;
-    float:left;
+            border-radius: 8px;
+}
 
-    text-align:center;
-    background:#fff;
-    border:1px solid #e3e3e3;
-    border-radius: 4px;
-    -webkit-border-radius:5px;
-    -moz-border-radius: 5px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+@media screen and (min-width: 1220px){
+    .question{font-size: 24px;}
+    .answer{width: 560px; font-size: 18px;}
+}
+
+@media screen and (min-width: 980px) and (max-width: 1219px){
+    .question{font-size: 24px;}
+    .answer{width: 440px; font-size: 18px;}
+}
+
+@media screen and (min-width: 720px) and (max-width: 979px){
+    .question{}
+    .answer{width: 320px;}
+}
+
+@media screen and (max-width: 719px){
+    .question{
+        height:150px;
+        text-align: center;
+    }
+    .answer{
+        width: 430px;
+        height:35px;
+        text-align: center;
+    }
 }
 
 .options_container{margin:0px auto; padding-bottom: 30px; width:860px; background:rgba(255,255,255,0.75);}
 .options{width:780px;margin:0px 30px;padding:10px; background:#fff;
-    border:1px solid #e3e3e3; 
+    border:1px solid #e3e3e3;
     -webkit-border-radius:5px;
        -moz-border-radius: 5px;
             border-radius: 4px;
@@ -106,13 +237,13 @@ a:hover, a:active {color:#000; text-decoration:none;}
 .toquizsubmission{font-size:14px;width:100px; float:right;}
 
 .revise{padding: 5px 20px;}
-.revise_tag{margin:10px; padding:5px; width:80px; 
+.revise_tag{margin:10px; padding:5px; width:80px;
     display: inline-block;
     font-size:12px;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
     text-align:center;
-    border:1px solid #ddd; 
+    border:1px solid #ddd;
     border-radius: 4px;
     -webkit-border-radius:5px;
        -moz-border-radius: 5px;
@@ -123,16 +254,16 @@ a:hover, a:active {color:#000; text-decoration:none;}
 }
 .revise_tag:hover{
     color: white;
-    background-color:#468847; 
+    background-color:#468847;
 }
 .revise_tag_choosed{
     color: white;
-    background-color:#e88406; 
+    background-color:#e88406;
 }
 .comment_container{padding:10px;width:550px;}
 .comment{
     width:300px;
-    border:1px solid #ddd; 
+    border:1px solid #ddd;
     border-radius: 4px;
     -webkit-border-radius:5px;
        -moz-border-radius: 5px;
@@ -141,7 +272,3 @@ a:hover, a:active {color:#000; text-decoration:none;}
             box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
 }
 .comment_submit{margin:10px;padding:5px;width:100px;}
-
-.mask{z-index: 10; position: fixed; left: 0px; top: 0px; width: 100%; height:100%;  background: rgba(0,0,0,0.75);}
-
-.footer_content{margin:0px auto; width:840px; padding:10px; background:rgba(0,0,0,0.75); font-size:12px; color:#bbb; text-align:right;}

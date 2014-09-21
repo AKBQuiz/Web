@@ -1,12 +1,14 @@
 from django.http import HttpResponseRedirect,HttpResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
+from django.template import RequestContext
 
+@csrf_exempt
 def quizgame(request):
-    return render_to_response('quizgame.html')
+    return render_to_response('quizgame.html', {"nav_active":0}, context_instance = RequestContext(request))
 
 def collect(request):
-    return render_to_response('collect.html')
+    return render_to_response('collect.html', {"nav_active":0}, context_instance = RequestContext(request))
 
 def query(request):
     return render_to_response('query.html')
@@ -17,22 +19,6 @@ def api_quiz_get(request):
         g = QuizGetter()
         g.requestHandler(request.GET)
         return HttpResponse(g.getQuizStr(), mimetype = g.getMimetype())
-
-# def api_quiz_query(request):
-#     if request.method == "GET":
-#         from quiz.models import Quiz
-#         author = request.GET.get("author", None)
-#         question = request.GET.get("question", None)
-#         preview = request.GET.get("preview", False)
-#         if author and not question:
-#             qlist = []
-#             if preview:
-#                 qlist = Quiz.objects.filter(author_text = author).all()[:6]
-#             else:
-#         elif not author and question:
-#             pass
-
-#         pass
 
 @csrf_exempt
 def api_quiz_submit(request):

@@ -4,6 +4,7 @@
 <head>
     <title>{% block title %}{% endblock %} - AKBQuiz</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="{{STATIC_URL}}css/base.css" rel="stylesheet" media="screen">
     <link href="{{STATIC_URL}}css/icons.min.css" rel="stylesheet" media="screen">
     {% block css %}
@@ -18,10 +19,10 @@
       </div>
       <div class="nav">
         <ul class="navbar-nav">
-          <li{% if nav_active == 0 %} class="active" {% endif %}><a href="{% url 'quizgame' %}">Quiz</a></li>
-          <li{% if nav_active == 1 %} class="active" {% endif %}><a href="{% url 'database' %}">成员数据库</a></li>
-          <li{% if nav_active == 10 %} class="active" {% endif %}><a href="">关于本站</a></li>
-          <li{% if nav_active == 11 %} class="active" {% endif %}><a href="">联系作者</a></li>
+          <li><a{% if nav_active == 0 %} class="active"{% endif %} href="{% url 'quizgame' %}">Quiz</a></li>
+          <li><a{% if nav_active == 1 %} class="active"{% endif %} href="{% url 'database' %}">成员数据库</a></li>
+          <li><a{% if nav_active == 10 %} class="active"{% endif %} href="">关于本站</a></li>
+          <li><a{% if nav_active == 11 %} class="active"{% endif %} href="">联系作者</a></li>
         </ul>
         <div class="float-right user-bar">
           {% if user.is_authenticated %}
@@ -43,6 +44,7 @@
 
 
   {% block footer %}
+  <div style="clear:both;"></div>
   <div class="footer text-center">
     <div class="container">
     	<div><small>Copyright © 2014 <a href="http://xiongduo.cn" title = "联系我"><strong>CuGBabyBeaR</strong></a> 版权所有</small></div>

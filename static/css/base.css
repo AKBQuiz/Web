@@ -51,6 +51,27 @@ ul {
   width: 980px;
 }
 
+.col-2{width:480px; float:left;}
+
+@media screen and (min-width: 1220px) {
+  .container {width:1220px;}
+  .col-2{width:610px;}
+}
+@media screen and (min-width: 980px) and (max-width: 1219px){
+  .container {width:980px;}
+  .col-2{width:490px;}
+}
+
+@media screen and (min-width: 720px) and (max-width: 979px){
+  .container {width:720px;}
+  .col-2{width:360px;}
+}
+
+@media screen and (max-width: 719px){
+  .container {width:480px;}
+  .col-2 {width:480px;}
+}
+
 .navbar {
   color: #aaa;
   background-color: #222;
@@ -91,7 +112,18 @@ ul {
   position: relative;
   display: block;
   padding: 15px;
+
 }
+
+.navbar-nav > li > a:hover{
+  text-decoration: none;
+  background-color: #333;
+}
+
+.navbar-nav > li > a.active{
+  background-color: #111;
+}
+
 
 .content {
   min-height: 600px;
